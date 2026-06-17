@@ -36,7 +36,7 @@ class InfluxDBConfig:
         region: Optional[str] = None,
     ) -> InfluxDBConfig:
         secret_name = secret_name or os.environ["INFLUXDB_SECRET_NAME"]
-        region = region or os.getenv("AWS_REGION", "eu-central-1")
+        region = region or os.environ["AWS_REGION"]
         logger = logging.getLogger(__name__)
 
         try:

@@ -83,7 +83,7 @@ cp .env.example .env
 | `EXPORT_S3_BUCKET` | Yes | S3 bucket for export payloads (claim-check data store) |
 | `MANIFEST_S3_BUCKET` | Yes | S3 bucket for the processing manifest |
 | `INFLUXDB_SECRET_NAME` | Yes | Secrets Manager path with InfluxDB credentials |
-| `AWS_REGION` | No | AWS region (default: `eu-central-1`) |
+| `AWS_REGION` | Yes | AWS region (e.g. `us-east-1`, `eu-west-1`) |
 | `EXPORT_S3_PREFIX` | No | Key prefix for export objects (default: `exports/`) |
 | `MANIFEST_S3_KEY` | No | Manifest object key (default: `Manifest_SQS_Processed.json`) |
 | `LOG_LEVEL` | No | Logging level (default: `INFO`) |
@@ -134,10 +134,11 @@ The DAG runs hourly (`0 * * * *`) and processes the previous complete hour.
 ## Local execution
 
 ```bash
-export SQS_QUEUE_URL="https://sqs.eu-central-1.amazonaws.com/123456789012/my-queue.fifo"
-export EXPORT_S3_BUCKET="my-export-bucket"
-export MANIFEST_S3_BUCKET="my-manifest-bucket"
-export INFLUXDB_SECRET_NAME="my/secret/path"
+export SQS_QUEUE_URL="https://sqs.<your-region>.amazonaws.com/<your-account-id>/<your-queue-name>.fifo"
+export EXPORT_S3_BUCKET="<your-export-bucket>"
+export MANIFEST_S3_BUCKET="<your-manifest-bucket>"
+export INFLUXDB_SECRET_NAME="<your/secret/path>"
+export AWS_REGION="<your-region>"
 
 python exporter_dag.py
 ```
